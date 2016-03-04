@@ -25,9 +25,6 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 
-// API KEY f224809ff58ec8e58ffdce094fdbdbd7
-
-
 public class MoviesFragment extends Fragment {
 
     private MovieAdapter moviesAdapter;
@@ -120,14 +117,10 @@ public class MoviesFragment extends Fragment {
             try {
                 // Construct the URL for the movieDB query
                 //http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=API+KEY
-                // Ex: https://api.themoviedb.org/3/movie/550?api_key=f224809ff58ec8e58ffdce094fdbdbd7
 
                 final String MOVIES_BASE_URL =
                         "http://api.themoviedb.org/3/discover/movie?";
-//                final String QUERY_PARAM = "q";
                 final String SORT_PARAM = "sort_by";
-//                final String UNITS_PARAM = "units";
-//                final String DAYS_PARAM = "cnt";
                 final String APPID_PARAM = "api_key";
 
                 Uri builtUri = Uri.parse(MOVIES_BASE_URL).buildUpon()
