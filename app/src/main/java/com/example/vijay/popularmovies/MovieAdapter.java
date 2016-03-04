@@ -61,6 +61,7 @@ public class MovieAdapter extends BaseAdapter {
             LayoutInflater inflater = ((MainActivity)mContext).getLayoutInflater();
             convertView = inflater.inflate(R.layout.gridview_item_movies, parent, false);
             holder = new ViewHolder(convertView);
+            holder.imageView = (ImageView)convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder)convertView.getTag();
