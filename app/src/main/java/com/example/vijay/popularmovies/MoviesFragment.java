@@ -1,14 +1,19 @@
 package com.example.vijay.popularmovies;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import org.json.JSONException;
@@ -48,19 +53,19 @@ public class MoviesFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            //SettingsActivity settings = new SettingsActivity();
-            //settings.onCreate(getArguments());
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            startActivityForResult(intent, SettingsActivity.REQUEST_CODE);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return onOptionsItemSelected(item);
     }
 
     public void getPopularMovies() {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
-        //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        //String location = sharedPref.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-        moviesTask.execute();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sort_order = sharedPref.getString(getString(R.string.pref_sort_order), getString(R.string.pref_default));
+        moviesTask.execute(sort_order);
     }
 
     public void onStart() {
@@ -79,26 +84,31 @@ public class MoviesFragment extends Fragment {
         mGridView = (GridView) rootView.findViewById(R.id.gridview_movies);
         mGridView.setAdapter(moviesAdapter);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                String forecast = moviesAdapter.getItem(position);
-//                Intent intent = new Intent(getActivity(), DetailActivity.class)
-//                        .putExtra(Intent.EXTRA_TEXT, forecast);
-//                startActivity(intent);
-//            }
-//        });
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                Movie movie = new Movie(movieArrayList.get(position).getPoster_path(),
+                        movieArrayList.get(position).getOverview(),
+                        movieArrayList.get(position).getRelease_date(),
+                        movieArrayList.get(position).getId(),
+                        movieArrayList.get(position).getOriginal_title(),
+                        movieArrayList.get(position).getPopularity(),
+                        movieArrayList.get(position).getVote_avg());
+                intent.putExtra("movie", movie);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }
 
-    public class FetchMoviesTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
+    public class FetchMoviesTask extends AsyncTask<String, Void, ArrayList<Movie>> {
 
         private final String LOG_TAG = FetchMoviesTask.class.getSimpleName();
 
         @Override
-        protected ArrayList<Movie> doInBackground(Void... params) {
+        protected ArrayList<Movie> doInBackground(String... params) {
 
             // If there's no zip code, there's nothing to look up.  Verify size of params.
 //            if (params.length == 0) {
@@ -111,8 +121,9 @@ public class MoviesFragment extends Fragment {
 
             // Will contain the raw JSON response as a string.
             String moviesJsonStr = null;
-
-            String sort_order = "popularity.desc";//could also be vote_average.desc
+            String sort_order = "popularity.desc";
+            if(!params[0].equals("Popular"))
+                sort_order = "vote_average.desc";
 
             try {
                 // Construct the URL for the movieDB query
@@ -193,6 +204,8 @@ public class MoviesFragment extends Fragment {
             if (result != null) {
                 movieArrayList = result;
                 // New data is back from the server.  Hooray!
+                moviesAdapter.addAll(movieArrayList);
+                moviesAdapter.notifyDataSetChanged();
             }
         }
     }

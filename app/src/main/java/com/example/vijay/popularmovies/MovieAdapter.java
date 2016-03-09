@@ -1,7 +1,6 @@
 package com.example.vijay.popularmovies;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,14 @@ public class MovieAdapter extends BaseAdapter {
         }
     }
 
+    public void addAll(ArrayList movieList) {
+        if(movieArrayList==null){
+            movieArrayList = new ArrayList();
+        }
+        movieArrayList.addAll(movieList);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return movieArrayList.size();
@@ -67,7 +74,7 @@ public class MovieAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
         Picasso.with(mContext).load(movieArrayList.get(position).getPoster_path()).into(holder.imageView);
-        Log.v(LOG_TAG, "Inside getView");
+        //Log.v(LOG_TAG, "Inside getView");
         return convertView;
     }
 }

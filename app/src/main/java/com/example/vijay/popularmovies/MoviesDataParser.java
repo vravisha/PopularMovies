@@ -67,7 +67,7 @@ public class MoviesDataParser {
         }
 
         for (Movie movie : resultStrs) {
-            Log.v(LOG_TAG, "Movie Title: " + movie.getOriginal_title());
+            Log.v(LOG_TAG, "Movie Title: " + movie.getOriginal_title() + " Date:" + movie.getRelease_date());
         }
         return resultStrs;
 
