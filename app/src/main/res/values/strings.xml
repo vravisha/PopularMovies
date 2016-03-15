@@ -6,15 +6,20 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
     <string name="pref_sort_order">Sort Movies by</string>
+    <string name="pref_sort_order_key">Sort</string>
     <string name="pref_default">Popular</string>
+    <string name="pref_sort_order_popular_label">Popular</string>
+    <string name="pref_sort_order_rating_label">Rating</string>
+    <string name="pref_sort_order_popular">popularity.desc</string>
+    <string name="pref_sort_order_rating">vote_average.desc</string>
 
     <string-array name="pref_sort_order_titles">
-        <item>Popularity</item>
-        <item>Rating</item>
+        <item>@string/pref_sort_order_popular_label</item>
+        <item>@string/pref_sort_order_rating_label</item>
     </string-array>
     <string-array name="pref_sort_order_values">
-        <item>15</item>
-        <item>30</item>
+        <item>@string/pref_sort_order_popular</item>
+        <item>@string/pref_sort_order_rating</item>
     </string-array>
 
     <string name="title_activity_detail">DetailActivity</string>

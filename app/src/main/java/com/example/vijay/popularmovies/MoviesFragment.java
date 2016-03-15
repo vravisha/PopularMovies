@@ -64,7 +64,7 @@ public class MoviesFragment extends Fragment {
     public void getPopularMovies() {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sort_order = sharedPref.getString(getString(R.string.pref_sort_order), getString(R.string.pref_default));
+        String sort_order = sharedPref.getString(getString(R.string.pref_sort_order_key), getString(R.string.pref_default));
         moviesTask.execute(sort_order);
     }
 
@@ -121,10 +121,11 @@ public class MoviesFragment extends Fragment {
 
             // Will contain the raw JSON response as a string.
             String moviesJsonStr = null;
-            String sort_order = "popularity.desc";
+            String sort_order = params[0];
+            /*        "popularity.desc";
             if(!params[0].equals("Popular"))
                 sort_order = "vote_average.desc";
-
+            */
             try {
                 // Construct the URL for the movieDB query
                 //http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=API+KEY

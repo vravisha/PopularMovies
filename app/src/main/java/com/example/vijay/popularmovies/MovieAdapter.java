@@ -41,6 +41,7 @@ public class MovieAdapter extends BaseAdapter {
         if(movieArrayList==null){
             movieArrayList = new ArrayList();
         }
+        movieArrayList.clear();
         movieArrayList.addAll(movieList);
         notifyDataSetChanged();
     }

@@ -28,7 +28,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/title_size"
-                android:layout_marginTop="@dimen/top_margin"
                 android:id="@+id/detail_title"/>
         </LinearLayout>
         <LinearLayout
