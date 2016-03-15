@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -53,8 +52,9 @@ public class MoviesFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(getActivity(), SettingsActivity.class);
-            startActivityForResult(intent, SettingsActivity.REQUEST_CODE);
+            //Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            //startActivityForResult(intent, SettingsActivity.REQUEST_CODE);
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
             return true;
         }
 
