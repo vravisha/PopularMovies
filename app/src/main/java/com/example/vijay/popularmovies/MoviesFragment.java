@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.vijay.popularmovies.data.Movie;
+
 import org.json.JSONException;
 
 import java.io.BufferedReader;

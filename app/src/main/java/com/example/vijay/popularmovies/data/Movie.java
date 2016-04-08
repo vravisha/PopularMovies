@@ -1,4 +1,4 @@
-package com.example.vijay.popularmovies;
+package com.example.vijay.popularmovies.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,7 +27,7 @@ public class Movie implements Parcelable{
         vote_avg = in.readByte() == 0x00 ? null : in.readDouble();
     }
 
-    Movie(String poster, String overview, String date, String id, String title, double popularity, double vote) {
+    public Movie(String poster, String overview, String date, String id, String title, double popularity, double vote) {
         this.poster_path = poster;
         this.overview = overview;
         this.release_date = date;
